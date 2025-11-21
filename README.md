@@ -1,98 +1,130 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Este es un proyecto cencillo de una calculadora con NestJs, solo se realizo la parte de backend con fines de mostrar y probar el funcionamiento de los workflows y github actions por lo que ese seria su proposito final.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# CI/CD 
 
-## Description
+## 1.  Diferencia entre CI y CD
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### **CI – Integración Continua (Continuous Integration)**
 
-## Project setup
+La Integración Continua es la práctica de integrar código en un repositorio de forma frecuente, cada vez que se hace un push o un pull request se sigue una secuencia de pasos definida de la siguiente manera:
 
-```bash
-$ npm install
+1. Se instala el proyecto.
+2. Se ejecuta el linter.
+3. Se compila.
+4. Se ejecutan las pruebas.
+5. Se genera un reporte de cobertura.
+
+El objetivo del CI es detectar errores tan pronto sea posible, ya que si se mantiene un ciclo constante de revision, pruebas y errores se puede asegurar un mayor resultado, a costa de por supuesto suponer un mayor esfuerzo.
+
+---
+
+### **CD – Despliegue Continuo o Entrega continua (Continuous Deployment or Continuous Delivery)**
+
+**CD tiene dos posibles significados:**
+
+#### *Continuous Delivery*
+
+El pipeline deja el proyecto listo para desplegar, pero requiere aprobación manual. La última etapa genera un build verificado, pero no lo publica automáticamente.
+
+#### *Continuous Deployment*
+
+El despliegue es automático a producción o al entorno configurado, sin intervención humana. En ambos casos, CD ocurre *después* del CI y garantiza que el software siempre esté listo para usarse o para enviarse a producción de forma confiable.
+
+---
+
+## 2. Lenguaje, Linter y Cobertura utilizados
+
+### **Lenguaje elegido: TypeScript**
+
+Este proyecto utiliza TypeScript debido a las posibilidades y comodidades que ofrece a la hora de trabajar, adicionalmente se resalta que estoy utilizando el framework orientado al backend NestJs el cual ultiliza Typescript como lenguaje principal, asi que podriamos decir que es una conveniencia y consecuencia de la practica.
+
+---
+
+### **Linter: ESLint**
+
+Para la evalucación de errores y su detección decidi emplear ESLint ya que es la herramienta estandar actual ya que permite reglas personalizadas y puede adaptarse a todo tipo de proyectos, su compatibilidad con TypeScript tambien resulta de mucha ayuda y ademas el framework NestJs ya lo tiene integrado por defecto, con lo cual solo me tome libertades en su configuración, sin mencionar que lo ocupamos antes de hacer build o pruebas en el proyecto.
+
+Comando típico:
+
+**Ejecutar Lint:**
+```
+npm run lint
 ```
 
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+**Ejecutar Build:**
+```
+npm run build
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+**Ejecutar Tests:**
+```
+npm run test
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### **Herramienta de cobertura: Jest (test runner + coverage)**
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+NestJs por defecto tiene integrado jest para realizar las pruebas unitarias y con cierto comando se permite ejecutar los test y obtener el coverage, permite generar reportes de covertura en formato Icov, tiene buena integración con GitHub Actions y es ideal para pruebas asincronas tambien.
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+Generación de cobertura:
+
+```
+npm run test:cov
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Esto crea:
 
-## Resources
+```
+coverage/lcov.info
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+el cual puede ser evaluado por herramientas de CI.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+## 3. Umbral mínimo de cobertura (threshold): **80%**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Justificación del umbral
 
-## Stay in touch
+Un rango recomendado para proyectos reales suele ser **70–90%**, para este proyecto se seleccionó **80%** por los siguientes motivos:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- 70% puede permitir demasiado código no probado.
+- 90% o más es ideal en proyectos críticos, pero aumenta mucho el esfuerzo y puede llevar a pruebas poco útiles solo para subir el número.
 
-## License
+ En otras palabras 80% es el punto óptimo entre calidad y productividad.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Si el umbral se incumple, el pipeline debe fallar, evitando que código con pruebas insuficientes llegue a `master`.
+
+# nektos/act
+
+act es una herramienta de línea de comandos que permite ejecutar workflows de GitHub Actions directamente en la computadora, sin necesidad de hacer commits ni usar GitHub.
+Simula el entorno de GitHub Actions utilizando contenedores Docker.
+
+Permite:
+
+- Probar workflows antes de subirlos al repositorio.
+- Depurar errores de CI/CD más rápido.
+- Ya que no se envia a github puedes revizar todo de forma local.
+
+Aunque se debe aclarar que esto supone un esfuerzo mayo en la maquina local asi que se debe requerir de una potencia minima para que funcione sin estorvar otras actividades.
+
+
+Para usar `act` se necesita:
+
+1. **Docker instalado y en ejecución**
+   `act` ejecuta los jobs dentro de contenedores Docker que simulan los runners de GitHub.
+
+### Ejecutar el workflow localmente
+
+```
+act push
+```
+```
+act --artifact-server-path $PWD/.artifactsv
+```
+este ultimo crea un servidor local en el cual se pueden subir artifacts, ya que por si solo el act push no los maneja debido que no tienen donde subirse. Esto normalmente no afecta cuando se sube a github ya que se ocupa el servidor de github propiamente.
+
+
+
